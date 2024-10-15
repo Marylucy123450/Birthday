@@ -1,27 +1,138 @@
+/* Define CSS Variables for easy theme management and gradients */
+:root {
+  --primary-gradient-start: rgba(63, 94, 251, 1);
+  --primary-gradient-end: rgba(252, 70, 107, 1);
+  --background-color: #141e30;
+  --secondary-background-color: #243b55;
+  --text-color: #eee;
+  --link-color: #aaa;
+  --link-hover-color: #fff;
+  --link-shadow-color: rgba(255, 255, 255, 0.3);
+  --canvas-blur: 5px;
+  --font-size-base: 16px;
+  --transition-duration: 0.5s;
+}
+
+/* Advanced Canvas Styling with smoother animation and enhanced blur */
 canvas {
   position: absolute;
   top: 0;
   left: 0;
+  width: 100%;
+  height: 100%;
+  background: radial-gradient(circle, var(--primary-gradient-start) 0%, var(--primary-gradient-end) 100%);
+  z-index: -1;
+  animation: animate-bg 15s ease-in-out infinite alternate;
+  filter: blur(var(--canvas-blur));
+  transition: filter var(--transition-duration);
 }
+
+canvas:hover {
+  filter: blur(0); /* Hover effect for depth */
+}
+
+/* Animation for canvas background with a subtle shift in gradient */
+@keyframes animate-bg {
+  0% {
+    background: radial-gradient(circle, var(--primary-gradient-start) 0%, var(--primary-gradient-end) 100%);
+  }
+  100% {
+    background: radial-gradient(circle, var(--primary-gradient-end) 0%, var(--primary-gradient-start) 100%);
+  }
+}
+
+/* Enhanced paragraph styling with CSS Grid for flexible layout */
 p {
-  margin: 0 0;
+  margin: 0;
   position: absolute;
-  font: 16px Verdana;
-  color: #eee;
-  height: 25px;
-  top: calc(100vh - 30px);
-  text-shadow: 0 0 2px white;
+  font: var(--font-size-base) 'Verdana', sans-serif;
+  color: var(--text-color);
+  top: calc(100vh - 40px);
+  text-shadow: 0 0 8px var(--text-color);
+  text-stroke: 1px black; /* Adds depth to text */
+  display: grid;
+  place-items: center;
+  grid-template-columns: auto auto;
+  column-gap: 15px;
+  transition: color var(--transition-duration), text-shadow var(--transition-duration), transform var(--transition-duration);
 }
+
+/* Interactive link styles with gradient text, shadows, and hover 3D effect */
 p a {
   text-decoration: none;
-  color: #aaa;
+  background: linear-gradient(to right, var(--primary-gradient-start), var(--primary-gradient-end));
+  -webkit-background-clip: text;
+  color: transparent;
+  transition: background var(--transition-duration), transform var(--transition-duration), box-shadow var(--transition-duration);
+  box-shadow: 0 4px 6px var(--link-shadow-color);
 }
+
+p a:hover {
+  background: linear-gradient(to right, var(--primary-gradient-end), var(--primary-gradient-start));
+  transform: scale(1.15) rotateY(15deg);
+  box-shadow: 0 8px 12px var(--link-shadow-color);
+}
+
 span {
-  font-size: 11px;
+  font-size: 12px;
+  letter-spacing: 0.7px;
 }
+
+/* Styling for the first link to stand out more */
 p > a:first-of-type {
-  font-size: 20px;
+  font-size: 24px;
+  font-weight: bold;
+  transform: translateY(-2px);
 }
+
+/* Body styling with animated gradient and flexible layout using Grid */
 body {
   overflow: hidden;
+  font-family: 'Segoe UI Variable', Tahoma, Geneva, Verdana, sans-serif;
+  background: linear-gradient(45deg, var(--background-color), var(--secondary-background-color));
+  color: var(--text-color);
+  margin: 0;
+  padding: 0;
+  display: grid;
+  place-items: center;
+  min-height: 100vh;
+  transition: background var(--transition-duration), transform var(--transition-duration);
+  perspective: 1000px;
+}
+
+/* Media Query for responsiveness with increased emphasis on readability */
+@media (max-width: 768px) {
+  p {
+    font-size: 14px;
+    top: calc(100vh - 50px);
+  }
+  p > a:first-of-type {
+    font-size: 20px;
+  }
+}
+
+@media (max-width: 480px) {
+  p {
+    font-size: 12px;
+  }
+  p > a:first-of-type {
+    font-size: 18px;
+  }
+}
+
+/* Adding a body hover effect for dynamic interaction */
+body:hover {
+  background: linear-gradient(45deg, var(--secondary-background-color), var(--background-color));
+  transform: scale(1.02); /* Slight zoom effect */
+}
+
+/* Enhanced Hover on Canvas */
+canvas:hover {
+  filter: blur(3px);
+}
+
+/* Additional hover effects for links */
+p a:active {
+  transform: scale(1.05) rotateX(10deg);
+  box-shadow: 0 6px 10px var(--link-shadow-color);
 }
